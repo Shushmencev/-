@@ -35,11 +35,11 @@ class Set{
 		//Просмотр множества:
 		void show_set (){
 			for (iter = my_set.begin(); iter != my_set.end(); iter++){
-				cout << *iter << endl;
+				cout << *iter << " ";
 			}
 		}
 		
-		//Определение элементов, подлежащих удалению:
+		//Удаление чётных элементов:
 		void del_even_num (){
 			set <int> temp_set;
 			
@@ -55,14 +55,56 @@ class Set{
 				}
 			}
 		}
+		
+		//Определение простоты числа:
+		bool is_prime_num (int x){
+			for (int i = 2; i <= x/2; i++){
+				if (x % i == 0){
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		//Замена непростых чисел произвольными простыми:
+		void replace_not_prime_num (){
+			set <int> temp_set;
+			
+			for (iter = my_set.begin(); iter != my_set.end(); iter++){
+				if (not is_prime_num(*iter)){
+					my_set.erase(*iter);
+					srand(time(NULL));
+					int x;
+					do{
+						x = rand() % MAX_VALUE_RAND;
+					}
+					while (not is_prime_num(x));
+					my_set.insert(x);
+				}
+			}
+		}
+		
+		
 };
 
 int main (){
 	Set my_set_1, my_set_2;
+	
 	my_set_1.create_set();
 	my_set_1.show_set();
+	cout << endl << endl;
+	
 	my_set_1.del_even_num();
 	my_set_1.show_set();
+	cout << endl << endl;
+	
+	my_set_1.replace_not_prime_num();
+	my_set_1.show_set();
+	cout << endl << endl;
+	
+	cout << my_set_1.is_prime_num(1);
+	cout << my_set_1.is_prime_num(5);
+	cout << my_set_1.is_prime_num(10);
 	
 	//Возврат нулевого значения:
 	return 0;
