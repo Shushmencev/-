@@ -29,7 +29,27 @@ int main (){
 	}
 	
 	//Просмотр множества:
-	int val;
+	for (Iter_1 = mySet_1.begin(); Iter_1 != mySet_1.end(); Iter_1++){
+		cout << *Iter_1 << endl;
+	}
+	
+	//Определение элементов, подлежащих удалению:
+	set <int> temp_set;
+	set <int>::iterator Temp_Iter;
+	for (Iter_1 = mySet_1.begin(); Iter_1 != mySet_1.end(); Iter_1++){
+		if (*Iter_1 % 2 == 0){
+			cout << "lfdjslfjds: " << *Iter_1 << endl;
+			temp_set.insert(*Iter_1);
+		}
+	}
+	
+	//Удаление элементов, подлежащих удалению:
+	for (Temp_Iter = temp_set.begin(); Temp_Iter != temp_set.end(); Temp_Iter++){
+		mySet_1.erase(*Temp_Iter);
+	}
+	
+	//Просмотр множества:
+	cout << "ulalalalala" << endl;
 	for (Iter_1 = mySet_1.begin(); Iter_1 != mySet_1.end(); Iter_1++){
 		cout << *Iter_1 << endl;
 	}
