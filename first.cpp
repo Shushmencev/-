@@ -14,12 +14,14 @@ using namespace std;
 
 //Макросы:
 #define MAX_VALUE_RAND 100 + 1
+#define NEW_MAX_VALUE_RAND 200 + 1
 #define COUNT_ELEMENTS 100
 
 class Set{
+	
 	private:
 		//Объявление множества:
-		set <int> my_set;
+		set <int> my_set, temp_set;
 		set <int>::iterator iter;
 		
 	public:
@@ -35,13 +37,13 @@ class Set{
 		//Просмотр множества:
 		void show_set (){
 			for (iter = my_set.begin(); iter != my_set.end(); iter++){
-				cout << *iter << " ";
+				cout << *iter << "   ";
 			}
 		}
 		
 		//Удаление чётных элементов:
 		void del_even_num (){
-			set <int> temp_set;
+			temp_set.clear();
 			
 			for (iter = my_set.begin(); iter != my_set.end(); iter++){
 				if (*iter % 2 == 0){
@@ -68,26 +70,36 @@ class Set{
 		
 		//Замена непростых чисел произвольными простыми:
 		void replace_not_prime_num (){
-			set <int> temp_set;
+			temp_set.clear();
 			
 			for (iter = my_set.begin(); iter != my_set.end(); iter++){
-				if (not is_prime_num(*iter)){
-					my_set.erase(*iter);
-					srand(time(NULL));
-					int x;
-					do{
-						x = rand() % MAX_VALUE_RAND;
-					}
-					while (not is_prime_num(x));
-					my_set.insert(x);
+				if (not is_prime_num(*iter)){	
+					temp_set.insert(*iter);
 				}
 			}
-		}
-		
-		
+			
+			srand(time(NULL));
+			int x = 0;
+			for (iter = temp_set.begin(); iter != temp_set.end(); iter++){
+				
+				my_set.erase(*iter);
+				
+				do{
+					x = rand() % NEW_MAX_VALUE_RAND;
+				}
+				while (
+					(not is_prime_num(x))
+					or (my_set.count(x) != 0)
+				);
+				my_set.insert(x);
+			}
+		}	
 };
 
 int main (){
+	
+	
+	
 	Set my_set_1, my_set_2;
 	
 	my_set_1.create_set();
@@ -101,12 +113,6 @@ int main (){
 	my_set_1.replace_not_prime_num();
 	my_set_1.show_set();
 	cout << endl << endl;
-	
-	my_set_1.
-	
-	cout << my_set_1.is_prime_num(1);
-	cout << my_set_1.is_prime_num(5);
-	cout << my_set_1.is_prime_num(10);
 	
 	//Возврат нулевого значения:
 	return 0;
