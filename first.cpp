@@ -16,43 +16,53 @@ using namespace std;
 #define MAX_VALUE_RAND 100 + 1
 #define COUNT_ELEMENTS 100
 
-int main (){
-	
-	//Объявление множества:
-	set <int> mySet_1, mySet_2;
-	set <int>::iterator Iter_1, Iter_2;
-	
-	//Заполнение множества случайными целыми числами:
-	srand(time(NULL));
-	for (int i = 0; i < COUNT_ELEMENTS; i++){
-		mySet_1.insert(rand() % MAX_VALUE_RAND);
-	}
-	
-	//Просмотр множества:
-	for (Iter_1 = mySet_1.begin(); Iter_1 != mySet_1.end(); Iter_1++){
-		cout << *Iter_1 << endl;
-	}
-	
-	//Определение элементов, подлежащих удалению:
-	set <int> temp_set;
-	set <int>::iterator Temp_Iter;
-	for (Iter_1 = mySet_1.begin(); Iter_1 != mySet_1.end(); Iter_1++){
-		if (*Iter_1 % 2 == 0){
-			cout << "lfdjslfjds: " << *Iter_1 << endl;
-			temp_set.insert(*Iter_1);
+class Set{
+	private:
+		//Объявление множества:
+		set <int> my_set;
+		set <int>::iterator iter;
+		
+	public:
+		//Заполнение множества случайными целыми числами:
+		set <int> create_set (){
+			srand(time(NULL));
+			for (int i = 0; i < COUNT_ELEMENTS; i++){
+				my_set.insert(rand() % MAX_VALUE_RAND);
+			}
+			return my_set;
 		}
-	}
-	
-	//Удаление элементов, подлежащих удалению:
-	for (Temp_Iter = temp_set.begin(); Temp_Iter != temp_set.end(); Temp_Iter++){
-		mySet_1.erase(*Temp_Iter);
-	}
-	
-	//Просмотр множества:
-	cout << "ulalalalala" << endl;
-	for (Iter_1 = mySet_1.begin(); Iter_1 != mySet_1.end(); Iter_1++){
-		cout << *Iter_1 << endl;
-	}
+		
+		//Просмотр множества:
+		void show_set (){
+			for (iter = my_set.begin(); iter != my_set.end(); iter++){
+				cout << *iter << endl;
+			}
+		}
+		
+		//Определение элементов, подлежащих удалению:
+		void del_even_num (){
+			set <int> temp_set;
+			
+			for (iter = my_set.begin(); iter != my_set.end(); iter++){
+				if (*iter % 2 == 0){
+					temp_set.insert(*iter);
+				}
+			}
+			
+			for (iter = temp_set.begin(); iter != temp_set.end(); iter++){
+				if (*iter % 2 == 0){
+					my_set.erase(*iter);
+				}
+			}
+		}
+};
+
+int main (){
+	Set my_set_1, my_set_2;
+	my_set_1.create_set();
+	my_set_1.show_set();
+	my_set_1.del_even_num();
+	my_set_1.show_set();
 	
 	//Возврат нулевого значения:
 	return 0;
