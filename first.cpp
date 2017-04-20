@@ -20,11 +20,13 @@ using namespace std;
 class Set{
 	
 	private:
-		//Объявление множества:
+		
+		//Объявление множеств:
 		set <int> my_set, temp_set;
 		set <int>::iterator iter;
 		
 	public:
+		
 		//Заполнение множества случайными целыми числами:
 		set <int> create_set (){
 			srand(time(NULL));
@@ -39,6 +41,7 @@ class Set{
 			for (iter = my_set.begin(); iter != my_set.end(); iter++){
 				cout << *iter << "   ";
 			}
+			cout << endl << endl;
 		}
 		
 		//Удаление чётных элементов:
@@ -93,26 +96,82 @@ class Set{
 				);
 				my_set.insert(x);
 			}
-		}	
+		}
+		
+		//Удаление n элементов после заданного:
+		void del_after_x (){
+			
+			int x, n;
+			
+			//Ввод значения x:
+			do{
+				cout << "Введите x: ";
+				cin >> x;
+			}
+			while (my_set.count(x) == 0);
+			
+			
+			//Ввод значения n:
+			cout << "Введите n: ";
+			cin >> n;
+			cout << endl;
+	
+			//Удаление n элементов после x:
+			for (int i = 0; i < n; i++){
+					if (my_set.upper_bound(x) != my_set.end()){
+						my_set.erase(my_set.upper_bound(x));
+					}
+			}
+		}
+		
+		/*
+		void combine_sets (){
+			for (iter = my_set_2.begin(); iter != my_set_2.end(); iter++){
+					my_set.insert(*iter);
+				}	
+		}
+		*/
+		
 };
 
 int main (){
 	
+	//Поддержка русского языка:
+	setlocale(LC_ALL, "Russian");
 	
-	
+	//Создание экземпляров класса Set:
 	Set my_set_1, my_set_2;
 	
+	//Задания 1.1, 1.2:
 	my_set_1.create_set();
+	cout << "Множество 1:" << endl << endl;
 	my_set_1.show_set();
-	cout << endl << endl;
 	
+	//Задания 1.3, 1.4:
+	//Удаление определённых элементов:
 	my_set_1.del_even_num();
+	cout << "Множество 1 после удаления чётных элементов:" << endl << endl;
 	my_set_1.show_set();
-	cout << endl << endl;
 	
+	//Замена определённых элементов:
 	my_set_1.replace_not_prime_num();
+	cout << "Множество 1 после замены непростых чисел простыми:" << endl << endl;
 	my_set_1.show_set();
-	cout << endl << endl;
+	
+	//Задание 1.5:
+	my_set_2.create_set();
+	cout << "Множество 2:" << endl << endl;
+	my_set_2.show_set();
+	
+	//Задание 1.6:
+	//Удаление n элементов после заданного:
+	my_set_1.del_after_x();
+	cout << "Множество 1 после удаления требуемых чисел:" << endl << endl;
+	my_set_1.show_set();
+	
+	//Добавление к множеству 1 элементов множества 2:
+	
+	
 	
 	//Возврат нулевого значения:
 	return 0;
