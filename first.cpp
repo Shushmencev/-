@@ -102,6 +102,8 @@ int main (){
 	my_set_1.show_set();
 	cout << endl << endl;
 	
+	my_set_1.
+	
 	cout << my_set_1.is_prime_num(1);
 	cout << my_set_1.is_prime_num(5);
 	cout << my_set_1.is_prime_num(10);
