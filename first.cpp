@@ -27,6 +27,11 @@ class Set{
 		
 	public:
 		
+		//Получение множества:
+		set <int> get_set (){
+			return my_set;
+		}
+		
 		//Заполнение множества случайными целыми числами:
 		set <int> create_set (){
 			srand(time(NULL));
@@ -124,13 +129,13 @@ class Set{
 			}
 		}
 		
-		/*
-		void combine_sets (){
+		
+		void combine_sets (set <int> my_set_2){
 			for (iter = my_set_2.begin(); iter != my_set_2.end(); iter++){
 					my_set.insert(*iter);
 				}	
 		}
-		*/
+		
 		
 };
 
@@ -170,8 +175,11 @@ int main (){
 	my_set_1.show_set();
 	
 	//Добавление к множеству 1 элементов множества 2:
-	
-	
+	my_set_1.combine_sets(my_set_2.get_set());
+	cout << "Множество 1 объединения с множеством 2:" << endl << endl;
+	my_set_1.show_set();
+	cout << "Множество 2:" << endl << endl;
+	my_set_2.show_set();
 	
 	//Возврат нулевого значения:
 	return 0;
