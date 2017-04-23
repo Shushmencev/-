@@ -1,6 +1,7 @@
 //Контейнеры:
 #include <algorithm>
 #include <set>
+#include <stack>
 
 //Ввод-вывод:
 #include <iostream>
@@ -139,6 +140,41 @@ class Set{
 		
 };
 
+class Stack{
+	
+	private:
+		
+		//Объявление стека:
+		stack <int> my_stack;
+		
+	public:
+		
+		//Получение стека:
+		stack <int> get_stack (){
+			return my_stack;
+		}
+		
+		//Заполнение стека произвольными элементами:
+		void create_elements (int n, int max_value){
+			srand(time(NULL));
+			for (int i = 0; i < n; i++){
+				my_stack.push(rand() % (max_value + 1));
+			}
+		}
+		
+		//Просмотр элементов стека:
+		void show_stack (){
+			
+			stack <int> temp_stack;
+			temp_stack = my_stack;
+			while (not temp_stack.empty()){
+				cout << temp_stack.top() << "\t";
+				temp_stack.pop();
+			}
+			cout << endl << endl;
+		}
+};
+
 int main (){
 	
 	//Поддержка русского языка:
@@ -164,6 +200,7 @@ int main (){
 	my_set_1.show_set();
 	
 	//Задание 1.5:
+	//Создание элементов множества 2:
 	my_set_2.create_set();
 	cout << "Множество 2:" << endl << endl;
 	my_set_2.show_set();
@@ -180,6 +217,15 @@ int main (){
 	my_set_1.show_set();
 	cout << "Множество 2:" << endl << endl;
 	my_set_2.show_set();
+	
+	//Создание экземпляров класса Stack:
+	Stack my_stack_1, my_stack_2;
+	
+	//Задание 2.1:
+	my_stack_1.create_elements(5, 100);
+	cout << "Стек 1:" << endl << endl;
+	my_stack_1.show_stack();
+	
 	
 	//Возврат нулевого значения:
 	return 0;
