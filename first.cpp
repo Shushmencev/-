@@ -135,8 +135,7 @@ class Set{
 			for (iter = my_set_2.begin(); iter != my_set_2.end(); iter++){
 					my_set.insert(*iter);
 				}	
-		}
-		
+		}	
 		
 };
 
@@ -196,6 +195,34 @@ class Stack{
 			my_stack = temp_stack;
 		}
 		
+		//Определение простоты числа:
+		bool is_prime_num (int x){
+			for (int i = 2; i <= x/2; i++){
+				if (x % i == 0){
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		//Поиск простого числа в стеке:
+		int find_prime_num (){
+			stack <int> temp_stack = my_stack;
+			
+			while (not temp_stack.empty()){
+				if (is_prime_num(temp_stack.top())){
+					return temp_stack.top();
+				}
+				else{
+					temp_stack.pop();
+				}
+			}
+			
+			//1 - Стек не содержит простых чисел
+			return 1;
+
+		}
+			
 };
 
 int main (){
@@ -249,11 +276,19 @@ int main (){
 	cout << "Стек 1:" << endl << endl;
 	my_stack_1.show_stack();
 	
-	//Задание 2.2, 2.3:
+	//Задания 2.2, 2.3:
 	my_stack_1.sort_stack();
 	cout << "Стек 1 после сортировки:" << endl << endl;
 	my_stack_1.show_stack();
 	
+	//Задание 2.4:
+	int x = my_stack_1.find_prime_num();
+	if (x == 1){
+		cout << "Стек не содержит простых чисел" << endl << endl;
+	}
+	else{
+		cout << "Первое простое число из стека: " << x << endl << endl;
+	}
 	
 	//Возврат нулевого значения:
 	return 0;
