@@ -151,28 +151,51 @@ class Stack{
 		
 		//Получение стека:
 		stack <int> get_stack (){
+			
 			return my_stack;
+		}
+		
+		//Просмотр элементов стека:
+		void show_stack (){
+			
+			stack <int> temp_stack = my_stack;
+			
+			while (not temp_stack.empty()){
+				cout << temp_stack.top() << "\t";
+				temp_stack.pop();
+			}
+			
+			cout << endl << endl;
 		}
 		
 		//Заполнение стека произвольными элементами:
 		void create_elements (int n, int max_value){
+			
 			srand(time(NULL));
 			for (int i = 0; i < n; i++){
 				my_stack.push(rand() % (max_value + 1));
 			}
 		}
 		
-		//Просмотр элементов стека:
-		void show_stack (){
+		//Сортировка стека по убыванию элементов:
+		void sort_stack (){
 			
-			stack <int> temp_stack;
-			temp_stack = my_stack;
+			stack <int> temp_stack = my_stack;
+			multiset <int> temp_multiset;
+			multiset <int>::iterator iter;
+			
 			while (not temp_stack.empty()){
-				cout << temp_stack.top() << "\t";
+				temp_multiset.insert(temp_stack.top());
 				temp_stack.pop();
 			}
-			cout << endl << endl;
+			
+			for (iter = temp_multiset.begin(); iter != temp_multiset.end(); iter++){
+				temp_stack.push(*iter);
+			}
+			
+			my_stack = temp_stack;
 		}
+		
 };
 
 int main (){
@@ -224,6 +247,11 @@ int main (){
 	//Задание 2.1:
 	my_stack_1.create_elements(5, 100);
 	cout << "Стек 1:" << endl << endl;
+	my_stack_1.show_stack();
+	
+	//Задание 2.2, 2.3:
+	my_stack_1.sort_stack();
+	cout << "Стек 1 после сортировки:" << endl << endl;
 	my_stack_1.show_stack();
 	
 	
