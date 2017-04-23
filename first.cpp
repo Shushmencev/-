@@ -24,7 +24,7 @@ class Set{
 		
 		//Объявление множеств:
 		set <int> my_set, temp_set;
-		set <int>::iterator iter;
+		set <int> :: iterator iter;
 		
 	public:
 		
@@ -33,13 +33,17 @@ class Set{
 			return my_set;
 		}
 		
+		//Заполнение множества элементами заданного множества:
+		void copy_elements (set <int> temp_set){
+			my_set = temp_set;
+		}
+		
 		//Заполнение множества случайными целыми числами:
-		set <int> create_set (){
+		void create_elements (){
 			srand(time(NULL));
 			for (int i = 0; i < COUNT_ELEMENTS; i++){
 				my_set.insert(rand() % MAX_VALUE_RAND);
 			}
-			return my_set;
 		}
 		
 		//Просмотр множества:
@@ -222,6 +226,25 @@ class Stack{
 			return 1;
 
 		}
+		
+		//Создание множества из простых элементов стека:
+		set <int> get_set_of_prime_num (){
+			set <int> temp_set;
+			stack <int> temp_stack = my_stack;
+			
+			while (not temp_stack.empty()){
+				if (is_prime_num(temp_stack.top())){
+					temp_set.insert(temp_stack.top());
+					temp_stack.pop();
+				}
+				else{
+					temp_stack.pop();
+				}
+			}
+			
+			return temp_set;
+				
+		}
 			
 };
 
@@ -234,7 +257,7 @@ int main (){
 	Set my_set_1, my_set_2;
 	
 	//Задания 1.1, 1.2:
-	my_set_1.create_set();
+	my_set_1.create_elements();
 	cout << "Множество 1:" << endl << endl;
 	my_set_1.show_set();
 	
@@ -251,7 +274,7 @@ int main (){
 	
 	//Задание 1.5:
 	//Создание элементов множества 2:
-	my_set_2.create_set();
+	my_set_2.create_elements();
 	cout << "Множество 2:" << endl << endl;
 	my_set_2.show_set();
 	
@@ -289,6 +312,13 @@ int main (){
 	else{
 		cout << "Первое простое число из стека: " << x << endl << endl;
 	}
+	
+	//Задания 2.5, 2.6:
+	Set my_set_3;
+	my_set_3.copy_elements(my_stack_1.get_set_of_prime_num());
+	cout << "Множество 3:" << endl << endl;
+	my_set_3.show_set();
+	
 	
 	//Возврат нулевого значения:
 	return 0;
