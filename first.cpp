@@ -181,7 +181,7 @@ class Stack{
 		}
 		
 		//Сортировка стека по убыванию элементов:
-		void sort_stack (){
+		void sort_stack_top_max (){
 			
 			stack <int> temp_stack = my_stack;
 			multiset <int> temp_multiset;
@@ -193,6 +193,25 @@ class Stack{
 			}
 			
 			for (iter = temp_multiset.begin(); iter != temp_multiset.end(); iter++){
+				temp_stack.push(*iter);
+			}
+			
+			my_stack = temp_stack;
+		}
+		
+		//Сортировка стека по возрастанию элементов:
+		void sort_stack_top_min (){
+			
+			stack <int> temp_stack = my_stack;
+			multiset <int> temp_multiset;
+			multiset <int>::iterator iter;
+			
+			while (not temp_stack.empty()){
+				temp_multiset.insert(temp_stack.top());
+				temp_stack.pop();
+			}
+			
+			for (iter = --temp_multiset.end(); iter != --temp_multiset.begin(); iter--){
 				temp_stack.push(*iter);
 			}
 			
@@ -300,8 +319,8 @@ int main (){
 	my_stack_1.show_stack();
 	
 	//Задания 2.2, 2.3:
-	my_stack_1.sort_stack();
-	cout << "Стек 1 после сортировки:" << endl << endl;
+	my_stack_1.sort_stack_top_max();
+	cout << "Стек 1 после сортировки по убыванию:" << endl << endl;
 	my_stack_1.show_stack();
 	
 	//Задание 2.4:
@@ -318,6 +337,12 @@ int main (){
 	my_set_3.copy_elements(my_stack_1.get_set_of_prime_num());
 	cout << "Множество 3:" << endl << endl;
 	my_set_3.show_set();
+	
+	//Задание 2.7, 2.8:
+	my_stack_1.sort_stack_top_min();
+	cout << "Стек 1 после сортировки по возрастанию:" << endl << endl;
+	my_stack_1.show_stack();
+	
 	
 	
 	//Возврат нулевого значения:
