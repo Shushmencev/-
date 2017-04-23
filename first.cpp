@@ -267,6 +267,38 @@ class Stack{
 			
 };
 
+class Multiset{
+	
+	private:
+		multiset <int> my_multiset;
+		multiset <int> :: iterator iter;
+		
+	public:
+		
+		//Объединение элементов стека и множества в мультимножество:
+		void create_elements (stack <int> temp_stack, set <int> temp_set){
+			
+			//Добавляем в мультимножество элементы стека:
+			while (not temp_stack.empty()){
+				my_multiset.insert(temp_stack.top());
+				temp_stack.pop();
+			}	
+			
+			//Добавляем в мультимножество элементы множества:
+			for (iter = temp_set.begin(); iter != temp_set.end(); iter++){
+				my_multiset.insert(*iter);
+			}
+			
+		}
+		
+		void show (){
+			for (iter = my_multiset.begin(); iter != my_multiset.end(); iter++){
+				cout << *iter << "\t";
+			}
+		}
+		
+};
+
 int main (){
 	
 	//Поддержка русского языка:
@@ -343,7 +375,12 @@ int main (){
 	cout << "Стек 1 после сортировки по возрастанию:" << endl << endl;
 	my_stack_1.show_stack();
 	
-	
+	//Задания 2.9, 2.10:
+	Multiset my_multiset_1;
+	my_multiset_1.create_elements(my_stack_1.get_stack(), my_set_3.get_set());
+	cout << "Новый контейнер, полученный из элементов стека и множества:" << endl << endl;
+	my_multiset_1.show();
+		
 	
 	//Возврат нулевого значения:
 	return 0;
