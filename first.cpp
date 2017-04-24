@@ -18,131 +18,6 @@ using namespace std;
 #define NEW_MAX_VALUE_RAND 200 + 1
 #define COUNT_ELEMENTS 100
 
-class Set{
-	
-	private:
-		
-		//Объявление множеств:
-		set <int> my_set, temp_set;
-		set <int> :: iterator iter;
-		
-	public:
-		
-		//Получение множества:
-		set <int> get_set (){
-			return my_set;
-		}
-		
-		//Заполнение множества элементами заданного множества:
-		void copy_elements (set <int> temp_set){
-			my_set = temp_set;
-		}
-		
-		//Заполнение множества случайными целыми числами:
-		void create_elements (){
-			srand(time(NULL));
-			for (int i = 0; i < COUNT_ELEMENTS; i++){
-				my_set.insert(rand() % MAX_VALUE_RAND);
-			}
-		}
-		
-		//Просмотр множества:
-		void show_set (){
-			for (iter = my_set.begin(); iter != my_set.end(); iter++){
-				cout << *iter << "   ";
-			}
-			cout << endl << endl;
-		}
-		
-		//Удаление чётных элементов:
-		void del_even_num (){
-			temp_set.clear();
-			
-			for (iter = my_set.begin(); iter != my_set.end(); iter++){
-				if (*iter % 2 == 0){
-					temp_set.insert(*iter);
-				}
-			}
-			
-			for (iter = temp_set.begin(); iter != temp_set.end(); iter++){
-				if (*iter % 2 == 0){
-					my_set.erase(*iter);
-				}
-			}
-		}
-		
-		//Определение простоты числа:
-		bool is_prime_num (int x){
-			for (int i = 2; i <= x/2; i++){
-				if (x % i == 0){
-					return false;
-				}
-			}
-			return true;
-		}
-		
-		//Замена непростых чисел произвольными простыми:
-		void replace_not_prime_num (){
-			temp_set.clear();
-			
-			for (iter = my_set.begin(); iter != my_set.end(); iter++){
-				if (not is_prime_num(*iter)){	
-					temp_set.insert(*iter);
-				}
-			}
-			
-			srand(time(NULL));
-			int x = 0;
-			for (iter = temp_set.begin(); iter != temp_set.end(); iter++){
-				
-				my_set.erase(*iter);
-				
-				do{
-					x = rand() % NEW_MAX_VALUE_RAND;
-				}
-				while (
-					(not is_prime_num(x))
-					or (my_set.count(x) != 0)
-				);
-				my_set.insert(x);
-			}
-		}
-		
-		//Удаление n элементов после заданного:
-		void del_after_x (){
-			
-			int x, n;
-			
-			//Ввод значения x:
-			do{
-				cout << "Введите x: ";
-				cin >> x;
-			}
-			while (my_set.count(x) == 0);
-			
-			
-			//Ввод значения n:
-			cout << "Введите n: ";
-			cin >> n;
-			cout << endl;
-	
-			//Удаление n элементов после x:
-			for (int i = 0; i < n; i++){
-					if (my_set.upper_bound(x) != my_set.end()){
-						my_set.erase(my_set.upper_bound(x));
-					}
-			}
-		}
-		
-		
-		void combine_sets (set <int> my_set_2){
-			for (iter = my_set_2.begin(); iter != my_set_2.end(); iter++){
-					my_set.insert(*iter);
-				}	
-		}	
-		
-};
-
 class Stack{
 	
 	private:
@@ -159,7 +34,7 @@ class Stack{
 		}
 		
 		//Просмотр элементов стека:
-		void show_stack (){
+		void show (){
 			
 			stack <int> temp_stack = my_stack;
 			
@@ -267,6 +142,131 @@ class Stack{
 			
 };
 
+class Set{
+	
+	private:
+		
+		//Объявление множеств:
+		set <int> my_set;
+		set <int> :: iterator iter;
+		
+	public:
+		
+		//Получение множества:
+		set <int> get_set (){
+			return my_set;
+		}
+		
+		//Заполнение множества элементами заданного множества:
+		void create_elements (set <int> temp_set){
+			my_set = temp_set;
+		}
+		
+		//Заполнение множества случайными целыми числами:
+		void create_elements (){
+			srand(time(NULL));
+			for (int i = 0; i < COUNT_ELEMENTS; i++){
+				my_set.insert(rand() % MAX_VALUE_RAND);
+			}
+		}
+		
+		//Просмотр множества:
+		void show (){
+			for (iter = my_set.begin(); iter != my_set.end(); iter++){
+				cout << *iter << "   ";
+			}
+			cout << endl << endl;
+		}
+		
+		//Удаление чётных элементов:
+		void del_even_num (){
+			set <int> temp_set;
+			
+			for (iter = my_set.begin(); iter != my_set.end(); iter++){
+				if (*iter % 2 == 0){
+					temp_set.insert(*iter);
+				}
+			}
+			
+			for (iter = temp_set.begin(); iter != temp_set.end(); iter++){
+				if (*iter % 2 == 0){
+					my_set.erase(*iter);
+				}
+			}
+		}
+		
+		//Определение простоты числа:
+		bool is_prime_num (int x){
+			for (int i = 2; i <= x/2; i++){
+				if (x % i == 0){
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		//Замена непростых чисел произвольными простыми:
+		void replace_not_prime_num (){
+			set <int> temp_set;
+			
+			for (iter = my_set.begin(); iter != my_set.end(); iter++){
+				if (not is_prime_num(*iter)){	
+					temp_set.insert(*iter);
+				}
+			}
+			
+			srand(time(NULL));
+			int x = 0;
+			for (iter = temp_set.begin(); iter != temp_set.end(); iter++){
+				
+				my_set.erase(*iter);
+				
+				do{
+					x = rand() % NEW_MAX_VALUE_RAND;
+				}
+				while (
+					(not is_prime_num(x))
+					or (my_set.count(x) != 0)
+				);
+				my_set.insert(x);
+			}
+		}
+		
+		//Удаление n элементов после заданного:
+		void del_after_x (){
+			
+			int x, n;
+			
+			//Ввод значения x:
+			do{
+				cout << "Введите x: ";
+				cin >> x;
+			}
+			while (my_set.count(x) == 0);
+			
+			
+			//Ввод значения n:
+			cout << "Введите n: ";
+			cin >> n;
+			cout << endl;
+	
+			//Удаление n элементов после x:
+			for (int i = 0; i < n; i++){
+					if (my_set.upper_bound(x) != my_set.end()){
+						my_set.erase(my_set.upper_bound(x));
+					}
+			}
+		}
+		
+		
+		void combine_sets (set <int> my_set_2){
+			for (iter = my_set_2.begin(); iter != my_set_2.end(); iter++){
+					my_set.insert(*iter);
+				}	
+		}	
+		
+};
+
 class Multiset{
 	
 	private:
@@ -291,12 +291,37 @@ class Multiset{
 			
 		}
 		
+		//Вывод элементов стека:
 		void show (){
 			for (iter = my_multiset.begin(); iter != my_multiset.end(); iter++){
 				cout << *iter << "\t";
 			}
+			
+			cout << endl << endl;
 		}
 		
+		//Определение простоты числа:
+		bool is_prime_num (int x){
+			for (int i = 2; i <= x/2; i++){
+				if (x % i == 0){
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		//Подсчёт количества простых чисел в мультимножестве:
+		int count_prime (){
+			
+			int n = 0;
+			for (iter = my_multiset.begin(); iter != my_multiset.end(); iter++){
+				if (is_prime_num(*iter)){
+					n += 1;
+				}
+			}
+			
+			return n;
+		}
 };
 
 int main (){
@@ -310,37 +335,37 @@ int main (){
 	//Задания 1.1, 1.2:
 	my_set_1.create_elements();
 	cout << "Множество 1:" << endl << endl;
-	my_set_1.show_set();
+	my_set_1.show();
 	
 	//Задания 1.3, 1.4:
 	//Удаление определённых элементов:
 	my_set_1.del_even_num();
 	cout << "Множество 1 после удаления чётных элементов:" << endl << endl;
-	my_set_1.show_set();
+	my_set_1.show();
 	
 	//Замена определённых элементов:
 	my_set_1.replace_not_prime_num();
 	cout << "Множество 1 после замены непростых чисел простыми:" << endl << endl;
-	my_set_1.show_set();
+	my_set_1.show();
 	
 	//Задание 1.5:
 	//Создание элементов множества 2:
 	my_set_2.create_elements();
 	cout << "Множество 2:" << endl << endl;
-	my_set_2.show_set();
+	my_set_2.show();
 	
 	//Задание 1.6:
 	//Удаление n элементов после заданного:
 	my_set_1.del_after_x();
 	cout << "Множество 1 после удаления требуемых чисел:" << endl << endl;
-	my_set_1.show_set();
+	my_set_1.show();
 	
 	//Добавление к множеству 1 элементов множества 2:
 	my_set_1.combine_sets(my_set_2.get_set());
 	cout << "Множество 1 объединения с множеством 2:" << endl << endl;
-	my_set_1.show_set();
+	my_set_1.show();
 	cout << "Множество 2:" << endl << endl;
-	my_set_2.show_set();
+	my_set_2.show();
 	
 	//Создание экземпляров класса Stack:
 	Stack my_stack_1, my_stack_2;
@@ -348,12 +373,12 @@ int main (){
 	//Задание 2.1:
 	my_stack_1.create_elements(5, 100);
 	cout << "Стек 1:" << endl << endl;
-	my_stack_1.show_stack();
+	my_stack_1.show();
 	
 	//Задания 2.2, 2.3:
 	my_stack_1.sort_stack_top_max();
 	cout << "Стек 1 после сортировки по убыванию:" << endl << endl;
-	my_stack_1.show_stack();
+	my_stack_1.show();
 	
 	//Задание 2.4:
 	int x = my_stack_1.find_prime_num();
@@ -366,22 +391,31 @@ int main (){
 	
 	//Задания 2.5, 2.6:
 	Set my_set_3;
-	my_set_3.copy_elements(my_stack_1.get_set_of_prime_num());
+	my_set_3.create_elements(my_stack_1.get_set_of_prime_num());
 	cout << "Множество 3:" << endl << endl;
-	my_set_3.show_set();
+	my_set_3.show();
 	
 	//Задание 2.7, 2.8:
 	my_stack_1.sort_stack_top_min();
 	cout << "Стек 1 после сортировки по возрастанию:" << endl << endl;
-	my_stack_1.show_stack();
+	my_stack_1.show();
 	
 	//Задания 2.9, 2.10:
 	Multiset my_multiset_1;
 	my_multiset_1.create_elements(my_stack_1.get_stack(), my_set_3.get_set());
 	cout << "Новый контейнер, полученный из элементов стека и множества:" << endl << endl;
 	my_multiset_1.show();
-		
 	
+	//Задание 2.11:
+	int n = my_multiset_1.count_prime();
+	cout << "Количество простых числе в мультимножестве: " << n << endl << endl;
+	if (n == 0){
+		cout << "В мультимножестве нет простых чисел" << endl << endl;
+	}
+	else{
+		cout << "В мультимножестве есть простые числа" << endl << endl;
+	}
+		
 	//Возврат нулевого значения:
 	return 0;
 }
