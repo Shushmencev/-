@@ -324,6 +324,25 @@ class Multiset{
 		}
 };
 
+template <class Type> class Summa{
+	
+	private:
+		Type my_a, my_b;
+	
+	public:
+		
+		Summa(Type a, Type b){
+			my_a = a;
+			my_b = b;		
+		}
+		~Summa() {}
+		
+		Type sum(){
+			cout << my_a + my_b << endl;
+		}
+
+};
+
 int main (){
 	
 	//Поддержка русского языка:
@@ -415,7 +434,18 @@ int main (){
 	else{
 		cout << "В мультимножестве есть простые числа" << endl << endl;
 	}
-		
+	
+	//Задание 3:
+	Summa <int> object_1 (1, 2);
+	Summa <float> object_2(1, 7.8);
+	cout << "Результат сложения целых чисел:" << endl;
+	object_1.sum();
+	cout << "Результат сложения рациональных чисел:" << endl;
+	object_2.sum(); 
+	
+	//Задержка:
+	system("pause");
+	
 	//Возврат нулевого значения:
 	return 0;
 }
